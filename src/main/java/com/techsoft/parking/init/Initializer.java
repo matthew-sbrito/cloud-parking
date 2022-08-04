@@ -26,22 +26,22 @@ public class Initializer {
 
     @PostConstruct
     public void createUserWithPermission() {
-        Role roleAdmin = new Role();
-
-        roleAdmin.setAuthority("USER");
-        roleAdmin = roleService.saveDomain(roleAdmin);
-
-        ApplicationUser user = new ApplicationUser();
-        user.setEnabled(true);
-        user.setEmail("teste@teste.com");
-        user.setFullName("Matheus Brito");
-        user.setPassword(new BCryptPasswordEncoder().encode("123456"));
-        user.setUsername("matheus");
-        user.setRoles(Collections.singletonList(roleAdmin));
-
-        userDetailsServiceImpl.saveDomain(user);
-
-        log.info("Save user {}", user.toString());
+//        Role roleAdmin = new Role();
+//
+//        roleAdmin.setAuthority("USER");
+//        roleAdmin = roleService.saveDomain(roleAdmin);
+//
+//        ApplicationUser user = new ApplicationUser();
+//        user.setEnabled(true);
+//        user.setEmail("teste@teste.com");
+//        user.setFullName("Matheus Brito");
+//        user.setPassword(new BCryptPasswordEncoder().encode("123456"));
+//        user.setUsername("matheus");
+//        user.setRoles(Collections.singletonList(roleAdmin));
+//
+//        userDetailsServiceImpl.saveDomain(user);
+//
+//        log.info("Save user {}", user.toString());
     }
 
 }
