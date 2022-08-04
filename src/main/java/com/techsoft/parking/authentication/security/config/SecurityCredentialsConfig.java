@@ -86,28 +86,28 @@ public class SecurityCredentialsConfig {
     @Bean
     @SneakyThrows
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) {
-        JwtUsernameAndPasswordAuthenticationFilter filterGenerateJWT = new JwtUsernameAndPasswordAuthenticationFilter(
-                authenticationManager(), jwtConfiguration, tokenBuilder
-        );
-
-        JwtTokenAuthorizationFilter filterParserJWT = new JwtTokenAuthorizationFilter(
-                jwtConfiguration, tokenParser
-        );
-
-        httpSecurity
-                .csrf().disable()
-                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().exceptionHandling()
-                .authenticationEntryPoint((request, response, authenticationException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
-                .and().addFilter(filterGenerateJWT)
-                .addFilterAfter(filterParserJWT, UsernamePasswordAuthenticationFilter.class)
-                .authenticationProvider(authenticationProvider())
-                .authenticationManager(authenticationManager())
-                .authorizeRequests()
-                .antMatchers(jwtConfiguration.getLoginURL()).permitAll()
-                .anyRequest().authenticated();
+//        JwtUsernameAndPasswordAuthenticationFilter filterGenerateJWT = new JwtUsernameAndPasswordAuthenticationFilter(
+//                authenticationManager(), jwtConfiguration, tokenBuilder
+//        );
+//
+//        JwtTokenAuthorizationFilter filterParserJWT = new JwtTokenAuthorizationFilter(
+//                jwtConfiguration, tokenParser
+//        );
+//
+//        httpSecurity
+//                .csrf().disable()
+//                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+//                .and().sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and().exceptionHandling()
+//                .authenticationEntryPoint((request, response, authenticationException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
+//                .and().addFilter(filterGenerateJWT)
+//                .addFilterAfter(filterParserJWT, UsernamePasswordAuthenticationFilter.class)
+//                .authenticationProvider(authenticationProvider())
+//                .authenticationManager(authenticationManager())
+//                .authorizeRequests()
+//                .antMatchers(jwtConfiguration.getLoginURL()).permitAll()
+//                .anyRequest().authenticated();
 
         return httpSecurity.build();
     }
