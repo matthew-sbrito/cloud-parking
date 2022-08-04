@@ -78,10 +78,10 @@ public class ParkingController {
 
     @DeleteMapping("/{id}")
     @ApiOperation("Delete parking by id")
-    public ResponseEntity<> delete(@PathVariable("id") String id) {
+    public ResponseEntity<?> delete(@PathVariable("id") String id) {
         log.info("Request for get parking by id: {}", id);
 
-        Parking parking = parkingService.delete(id);
+        parkingService.delete(id);
 
         return ResponseEntity.ok().build();
     }
