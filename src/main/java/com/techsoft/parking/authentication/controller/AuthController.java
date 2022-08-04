@@ -4,7 +4,7 @@ import com.techsoft.parking.authentication.domain.ApplicationUser;
 import com.techsoft.parking.authentication.form.UserForm;
 import com.techsoft.parking.authentication.service.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class AuthController {
 
 	private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-	@Autowired
+
 	public AuthController(UserDetailsServiceImpl userDetailsServiceImpl) {
 		this.userDetailsServiceImpl = userDetailsServiceImpl;
 	}

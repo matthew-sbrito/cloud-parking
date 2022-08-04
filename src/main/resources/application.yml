@@ -10,7 +10,10 @@ management:
   server:
     port: 8080
 
-#spring:
+spring:
+    mvc:
+      pathmatch:
+        matching-strategy: ant_path_matcher
 #  datasource:
 #    url: jdbc:postgresql://localhost:5432/parking?useTimezone=true&serverTimezone=UTC&useLegacyDate
 #    username: postgres

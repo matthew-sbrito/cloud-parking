@@ -1,13 +1,10 @@
 package com.techsoft.parking.authentication.security.config;
 
-import com.techsoft.parking.authentication.security.filter.JwtTokenAuthorizationFilter;
-import com.techsoft.parking.authentication.security.filter.JwtUsernameAndPasswordAuthenticationFilter;
 import com.techsoft.parking.authentication.security.token.TokenBuilder;
 import com.techsoft.parking.authentication.security.token.TokenParser;
 import com.techsoft.parking.authentication.service.UserDetailsServiceImpl;
 import com.techsoft.parking.common.properties.JwtConfiguration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,12 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.SneakyThrows;
+import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * Configuring Http Request for authentication login with JWT!
@@ -42,7 +36,7 @@ public class SecurityCredentialsConfig {
     private final TokenBuilder tokenBuilder;
     private final TokenParser tokenParser;
 
-    @Autowired
+
     public SecurityCredentialsConfig(
             AuthenticationConfiguration configuration,
             UserDetailsServiceImpl userDetailsService,
@@ -94,11 +88,11 @@ public class SecurityCredentialsConfig {
 //                jwtConfiguration, tokenParser
 //        );
 //
-//        httpSecurity
-//                .csrf().disable()
-//                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-//                .and().sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        httpSecurity
+                .csrf().disable()
+                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //                .and().exceptionHandling()
 //                .authenticationEntryPoint((request, response, authenticationException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
 //                .and().addFilter(filterGenerateJWT)
@@ -109,7 +103,8 @@ public class SecurityCredentialsConfig {
 //                .antMatchers(jwtConfiguration.getLoginURL()).permitAll()
 //                .anyRequest().authenticated();
 
-        return httpSecurity.build();
+        return httpSecurity
+                .build();
     }
 
 }

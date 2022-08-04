@@ -11,7 +11,7 @@ import com.techsoft.parking.authentication.domain.ApplicationUser;
 import com.techsoft.parking.common.properties.JwtConfiguration;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class TokenBuilder {
 
     private final JwtConfiguration jwtConfiguration;
 
-    @Autowired
+
     public TokenBuilder(JwtConfiguration jwtConfiguration) {
         this.jwtConfiguration = jwtConfiguration;
     }

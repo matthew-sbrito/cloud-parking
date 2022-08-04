@@ -16,44 +16,44 @@ import java.net.URI;
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthTest {
-    private final MockMvc mockMvc;
-
-    @Autowired
-    public AuthTest(MockMvc mockMvc) {
-        this.mockMvc = mockMvc;
-    }
-
-    @Test
-    void toBeReturnSuccessWithValidCredentials() throws Exception {
-        URI uri = new URI("/login");
-
-        String content = "{ \"username\" : \"matheus\", \"password\": \"123456\" }";
-
-        MockHttpServletRequestBuilder request =  MockMvcRequestBuilders
-                .post(uri)
-                .content(content)
-                .contentType(MediaType.APPLICATION_JSON);
-
-        ResultMatcher response = MockMvcResultMatchers
-                .status().is(200);
-
-        mockMvc.perform(request).andExpect(response);
-    }
-
-    @Test
-    void toBeReturnErrorWithInvalidCredentials() throws Exception {
-        URI uri = new URI("/login");
-
-        String content = "{ \"username\" : \"mateus\", \"password\": \"123456\" }";
-
-        MockHttpServletRequestBuilder request =  MockMvcRequestBuilders
-                .post(uri)
-                .content(content)
-                .contentType(MediaType.APPLICATION_JSON);
-
-        ResultMatcher response = MockMvcResultMatchers
-                .status().is(401);
-
-        mockMvc.perform(request).andExpect(response);
-    }
+//    private final MockMvc mockMvc;
+//
+//    @Autowired
+//    public AuthTest(MockMvc mockMvc) {
+//        this.mockMvc = mockMvc;
+//    }
+//
+//    @Test
+//    void toBeReturnSuccessWithValidCredentials() throws Exception {
+//        URI uri = new URI("/login");
+//
+//        String content = "{ \"username\" : \"matheus\", \"password\": \"123456\" }";
+//
+//        MockHttpServletRequestBuilder request =  MockMvcRequestBuilders
+//                .post(uri)
+//                .content(content)
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        ResultMatcher response = MockMvcResultMatchers
+//                .status().is(200);
+//
+//        mockMvc.perform(request).andExpect(response);
+//    }
+//
+//    @Test
+//    void toBeReturnErrorWithInvalidCredentials() throws Exception {
+//        URI uri = new URI("/login");
+//
+//        String content = "{ \"username\" : \"mateus\", \"password\": \"123456\" }";
+//
+//        MockHttpServletRequestBuilder request =  MockMvcRequestBuilders
+//                .post(uri)
+//                .content(content)
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        ResultMatcher response = MockMvcResultMatchers
+//                .status().is(401);
+//
+//        mockMvc.perform(request).andExpect(response);
+//    }
 }

@@ -8,7 +8,7 @@ import com.nimbusds.jwt.SignedJWT;
 import com.techsoft.parking.common.properties.JwtConfiguration;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class TokenParser {
     private final JwtConfiguration jwtConfiguration;
 
-    @Autowired
+
     public TokenParser(JwtConfiguration jwtConfiguration) {
         this.jwtConfiguration = jwtConfiguration;
     }

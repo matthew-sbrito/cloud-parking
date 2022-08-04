@@ -1,7 +1,7 @@
 package com.techsoft.parking.common.helper;
 
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,6 @@ public class StaticContextAccessor {
     private static final Map<Class, DynamicInvocationHandler> classHandlers = new HashMap<>();
     private static ApplicationContext applicationContext;
 
-    @Autowired
     public StaticContextAccessor(ApplicationContext applicationContext) {
         StaticContextAccessor.applicationContext = applicationContext;
     }

@@ -5,7 +5,7 @@ import com.techsoft.parking.authentication.form.UserForm;
 import com.techsoft.parking.authentication.repository.UserRepository;
 import com.techsoft.parking.common.service.impl.AbstractCrudServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl extends AbstractCrudServiceImpl<ApplicationUser, Long, UserRepository, UserForm> implements UserDetailsService {
 
-    @Autowired
+
     UserDetailsServiceImpl(UserRepository userRepository) {
         super(userRepository, ApplicationUser.class);
     }
