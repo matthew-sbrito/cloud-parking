@@ -14,4 +14,9 @@ public class HelloWorldController {
     String helloWorld() {
         return "Hello world!";
     }
+
+    @GetMapping("/love")
+    String love() {
+        return  "I love you girl! Bianca <3 Matheus (com H)";
+    }
 }
