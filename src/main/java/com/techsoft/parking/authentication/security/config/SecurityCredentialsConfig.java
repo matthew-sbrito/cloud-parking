@@ -1,5 +1,7 @@
 package com.techsoft.parking.authentication.security.config;
 
+import com.techsoft.parking.authentication.security.filter.JwtTokenAuthorizationFilter;
+import com.techsoft.parking.authentication.security.filter.JwtUsernameAndPasswordAuthenticationFilter;
 import com.techsoft.parking.authentication.security.token.TokenBuilder;
 import com.techsoft.parking.authentication.security.token.TokenParser;
 import com.techsoft.parking.authentication.service.UserDetailsServiceImpl;
@@ -19,7 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.SneakyThrows;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Configuring Http Request for authentication login with JWT!
@@ -80,28 +85,29 @@ public class SecurityCredentialsConfig {
     @Bean
     @SneakyThrows
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) {
-//        JwtUsernameAndPasswordAuthenticationFilter filterGenerateJWT = new JwtUsernameAndPasswordAuthenticationFilter(
-//                authenticationManager(), jwtConfiguration, tokenBuilder
-//        );
-//
-//        JwtTokenAuthorizationFilter filterParserJWT = new JwtTokenAuthorizationFilter(
-//                jwtConfiguration, tokenParser
-//        );
-//
+        JwtUsernameAndPasswordAuthenticationFilter filterGenerateJWT = new JwtUsernameAndPasswordAuthenticationFilter(
+                authenticationManager(), jwtConfiguration, tokenBuilder
+        );
+
+        JwtTokenAuthorizationFilter filterParserJWT = new JwtTokenAuthorizationFilter(
+                jwtConfiguration, tokenParser
+        );
+
         httpSecurity
                 .csrf().disable()
                 .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                .and().exceptionHandling()
-//                .authenticationEntryPoint((request, response, authenticationException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
-//                .and().addFilter(filterGenerateJWT)
-//                .addFilterAfter(filterParserJWT, UsernamePasswordAuthenticationFilter.class)
-//                .authenticationProvider(authenticationProvider())
-//                .authenticationManager(authenticationManager())
-//                .authorizeRequests()
-//                .antMatchers(jwtConfiguration.getLoginURL()).permitAll()
-//                .anyRequest().authenticated();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().exceptionHandling()
+                .authenticationEntryPoint((request, response, authenticationException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
+                .and().addFilter(filterGenerateJWT)
+                .addFilterAfter(filterParserJWT, UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(authenticationProvider())
+                .authenticationManager(authenticationManager())
+                .authorizeRequests()
+                .antMatchers(jwtConfiguration.getLoginURL()).permitAll()
+                .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                .anyRequest().authenticated();
 
         return httpSecurity
                 .build();

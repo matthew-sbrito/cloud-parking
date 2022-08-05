@@ -3,6 +3,8 @@ package com.techsoft.parking.authentication.controller;
 import com.techsoft.parking.authentication.domain.ApplicationUser;
 import com.techsoft.parking.authentication.dto.form.ApplicationUserCreateDTO;
 import com.techsoft.parking.authentication.service.UserDetailsServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
@@ -13,17 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/user")
+@Api(tags = "Create user controller")
 public class AuthController {
 
 	private final UserDetailsServiceImpl userDetailsServiceImpl;
-
 
 	public AuthController(UserDetailsServiceImpl userDetailsServiceImpl) {
 		this.userDetailsServiceImpl = userDetailsServiceImpl;
 	}
 
-	@PostMapping("/create")
+	@PostMapping
+	@ApiOperation("Create user")
 	public ResponseEntity<ApplicationUser> create(ApplicationUserCreateDTO applicationUserCreateDTO) {
         ApplicationUser user = userDetailsServiceImpl.saveDto(applicationUserCreateDTO);
 
