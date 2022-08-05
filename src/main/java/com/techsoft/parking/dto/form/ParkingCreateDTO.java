@@ -1,4 +1,4 @@
-package com.techsoft.parking.controller.dto;
+package com.techsoft.parking.dto.form;
 
 import lombok.Data;
 

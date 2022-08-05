@@ -1,21 +1,37 @@
 package com.techsoft.parking.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 public class Parking {
-    private String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @Column(nullable = false)
     private String license;
+
+    @Column(nullable = false)
     private String state;
+
+    @Column(nullable = false)
     private String model;
+
+    @Column(nullable = false)
     private String color;
+
+    @Column(nullable = false)
     private LocalDateTime entryDate;
+
+    @Column(nullable = true)
     private LocalDateTime exitDate;
+
+    @Column(nullable = true)
     private Double bill;
 }

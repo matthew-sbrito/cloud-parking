@@ -1,7 +1,7 @@
-package com.techsoft.parking.controller.mapper;
+package com.techsoft.parking.mapper;
 
-import com.techsoft.parking.controller.dto.ParkingCreateDTO;
-import com.techsoft.parking.controller.dto.ParkingDTO;
+import com.techsoft.parking.dto.form.ParkingCreateDTO;
+import com.techsoft.parking.dto.ParkingDTO;
 import com.techsoft.parking.domain.Parking;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

@@ -11,16 +11,16 @@ management:
     port: 8080
 
 spring:
-    mvc:
-      pathmatch:
-        matching-strategy: ant_path_matcher
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/parking?useTimezone=true&serverTimezone=UTC&useLegacyDate
-#    username: postgres
-#    password: postgres
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: create
-#    properties:
-#      hibernate.format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:postgresql://localhost:5432/parking?useTimezone=true&serverTimezone=UTC&useLegacyDate
+    username: admin
+    password: 123456
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true

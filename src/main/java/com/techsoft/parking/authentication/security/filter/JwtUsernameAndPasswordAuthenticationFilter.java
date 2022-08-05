@@ -3,8 +3,8 @@ package com.techsoft.parking.authentication.security.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jwt.SignedJWT;
 import com.techsoft.parking.authentication.domain.ApplicationUser;
-import com.techsoft.parking.authentication.response.ApplicationUserResponse;
-import com.techsoft.parking.authentication.response.AuthResponse;
+import com.techsoft.parking.authentication.dto.response.ApplicationUserDTO;
+import com.techsoft.parking.authentication.dto.response.AuthenticateDTO;
 import com.techsoft.parking.authentication.security.token.TokenBuilder;
 import com.techsoft.parking.common.properties.JwtConfiguration;
 import lombok.SneakyThrows;
@@ -61,18 +61,18 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
 
-    private AuthResponse generateAuthResponse(Authentication authentication, String token) {
+    private AuthenticateDTO generateAuthResponse(Authentication authentication, String token) {
         log.info("Creating response auth for user!");
         ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
 
-        AuthResponse authResponse = new AuthResponse();
+        AuthenticateDTO authenticateDTO = new AuthenticateDTO();
 
-        authResponse.setCreateAt(new Date());
-        authResponse.setExpireIn(jwtConfiguration.getExpiration());
-        authResponse.setUser(new ApplicationUserResponse(user));
-        authResponse.setToken(token);
+        authenticateDTO.setCreateAt(new Date());
+        authenticateDTO.setExpireIn(jwtConfiguration.getExpiration());
+        authenticateDTO.setUser(new ApplicationUserDTO(user));
+        authenticateDTO.setToken(token);
 
-        return authResponse;
+        return authenticateDTO;
     }
 
     @Override
@@ -84,14 +84,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         String encryptedToken = tokenBuilder.encryptToken(signedJWT);
 
-        AuthResponse authResponse = generateAuthResponse(auth, encryptedToken);
+        AuthenticateDTO authenticateDTO = generateAuthResponse(auth, encryptedToken);
 
         log.info("Token generated successfully, adding it to response");
 
         response.addHeader("Access-Control-Expose-Headers", "XSRF-TOKEN, " + jwtConfiguration.getHeader().getName());
         response.addHeader(jwtConfiguration.getHeader().getName(), jwtConfiguration.getHeader().getPrefix() + " " + encryptedToken);
         response.addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(authResponse.toJson());
+        response.getWriter().write(authenticateDTO.toJson());
         response.getWriter().flush();
     }
 }

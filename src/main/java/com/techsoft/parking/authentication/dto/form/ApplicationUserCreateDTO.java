@@ -1,9 +1,9 @@
-package com.techsoft.parking.authentication.form;
+package com.techsoft.parking.authentication.dto.form;
 
 import lombok.Data;
 
 @Data
-public class UserForm {
+public class ApplicationUserCreateDTO {
     private String fullName;
     private String username;
     private String email;

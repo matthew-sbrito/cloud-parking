@@ -1,7 +1,7 @@
 package com.techsoft.parking.authentication.controller;
 
 import com.techsoft.parking.authentication.domain.ApplicationUser;
-import com.techsoft.parking.authentication.form.UserForm;
+import com.techsoft.parking.authentication.dto.form.ApplicationUserCreateDTO;
 import com.techsoft.parking.authentication.service.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +24,8 @@ public class AuthController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<ApplicationUser> create(UserForm userForm) {
-        ApplicationUser user = userDetailsServiceImpl.saveDto(userForm);
+	public ResponseEntity<ApplicationUser> create(ApplicationUserCreateDTO applicationUserCreateDTO) {
+        ApplicationUser user = userDetailsServiceImpl.saveDto(applicationUserCreateDTO);
 
 //        URI uri = URI.create(String.format("/user/%s", user.getId().toString()));
         return ResponseEntity.status(HttpStatus.CREATED).body(user);

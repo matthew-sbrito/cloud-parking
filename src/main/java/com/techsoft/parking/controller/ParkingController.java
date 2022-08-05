@@ -1,8 +1,8 @@
 package com.techsoft.parking.controller;
 
-import com.techsoft.parking.controller.dto.ParkingCreateDTO;
-import com.techsoft.parking.controller.dto.ParkingDTO;
-import com.techsoft.parking.controller.mapper.ParkingMapper;
+import com.techsoft.parking.dto.form.ParkingCreateDTO;
+import com.techsoft.parking.dto.ParkingDTO;
+import com.techsoft.parking.mapper.ParkingMapper;
 import com.techsoft.parking.domain.Parking;
 import com.techsoft.parking.service.ParkingService;
 import io.swagger.annotations.Api;
@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -41,7 +42,7 @@ public class ParkingController {
 
     @GetMapping("/{id}")
     @ApiOperation("Find parking by id")
-    public ResponseEntity<ParkingDTO> findById(@PathVariable("id") String id) {
+    public ResponseEntity<ParkingDTO> findById(@PathVariable UUID id) {
         log.info("Request for get parking by id: {}", id);
 
         Parking parking = parkingService.findById(id);
@@ -50,7 +51,7 @@ public class ParkingController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @ApiOperation("Create new parking")
     public ResponseEntity<ParkingDTO> create(@RequestBody ParkingCreateDTO parkingCreateDTO) {
         log.info("Request for create Parking");
@@ -63,9 +64,9 @@ public class ParkingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @ApiOperation("Update exists parking")
-    public ResponseEntity<ParkingDTO> update(@PathVariable("id") String id, @RequestBody ParkingCreateDTO parkingCreateDTO) {
+    public ResponseEntity<ParkingDTO> update(@PathVariable UUID id, @RequestBody ParkingCreateDTO parkingCreateDTO) {
         log.info("Request for update Parking");
 
         Parking parkingCreate = parkingMapper.toParking(parkingCreateDTO);
@@ -78,11 +79,22 @@ public class ParkingController {
 
     @DeleteMapping("/{id}")
     @ApiOperation("Delete parking by id")
-    public ResponseEntity<?> delete(@PathVariable("id") String id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         log.info("Request for get parking by id: {}", id);
 
         parkingService.delete(id);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/exit/{id}")
+    @ApiOperation("Exit exists parking!")
+    public ResponseEntity<ParkingDTO> exit(@PathVariable UUID id) {
+        log.info("Request for exit parking of id: {}", id);
+
+        Parking parking = parkingService.checkout(id);
+        ParkingDTO result = parkingMapper.toParkingDTO(parking);
+
+        return ResponseEntity.ok(result);
     }
 }

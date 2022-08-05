@@ -1,24 +1,19 @@
 version: '3.5'
 
 services:
-  postgres-auth:
-    container_name: cloud-parking-container
+  database:
+    container_name: cloud-parking
     image: postgres
+    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /data/postgres-auth
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: parking
+      PGDATA: /data/parking
     volumes:
-      - postgres-cloud-parking:/data/postgres-auth
+      - cloud-parking:/data/parking
     ports:
       - "5432:5432"
-    networks:
-      - postgres-cloud-parking
-    restart: unless-stopped
-
-networks:
-  postgres-cloud-parking:
-    driver: bridge
 
 volumes:
-  postgres-cloud-parking:
+  cloud-parking:

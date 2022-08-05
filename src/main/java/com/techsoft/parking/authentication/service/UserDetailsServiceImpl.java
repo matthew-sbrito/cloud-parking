@@ -1,7 +1,7 @@
 package com.techsoft.parking.authentication.service;
 
 import com.techsoft.parking.authentication.domain.ApplicationUser;
-import com.techsoft.parking.authentication.form.UserForm;
+import com.techsoft.parking.authentication.dto.form.ApplicationUserCreateDTO;
 import com.techsoft.parking.authentication.repository.UserRepository;
 import com.techsoft.parking.common.service.impl.AbstractCrudServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class UserDetailsServiceImpl extends AbstractCrudServiceImpl<ApplicationUser, Long, UserRepository, UserForm> implements UserDetailsService {
+public class UserDetailsServiceImpl extends AbstractCrudServiceImpl<ApplicationUser, Long, UserRepository, ApplicationUserCreateDTO> implements UserDetailsService {
 
 
     UserDetailsServiceImpl(UserRepository userRepository) {
