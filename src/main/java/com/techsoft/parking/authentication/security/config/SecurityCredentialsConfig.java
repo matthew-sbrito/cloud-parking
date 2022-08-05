@@ -106,7 +106,8 @@ public class SecurityCredentialsConfig {
                 .authenticationManager(authenticationManager())
                 .authorizeRequests()
                 .antMatchers(jwtConfiguration.getLoginURL()).permitAll()
-                .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs", "/", "/csrf").permitAll()
+                .antMatchers("/*.js", "/*.css", "/*.ico", "/*.png").permitAll()
                 .anyRequest().authenticated();
 
         return httpSecurity

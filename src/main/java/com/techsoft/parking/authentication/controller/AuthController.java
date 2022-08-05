@@ -35,5 +35,4 @@ public class AuthController {
 //        URI uri = URI.create(String.format("/user/%s", user.getId().toString()));
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApplicationUserDTO(user));
 	}
-
 }
